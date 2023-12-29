@@ -52,6 +52,15 @@ class ContextWindow:
             sublist.add_command(label=option.name, command=lambda:option_select_callback(option.tag))
 
     def show(self):
+        # get screen width and height
+        ws = self.window.winfo_screenwidth()
+        hs = self.window.winfo_screenheight()
+
+        x = ws/2
+        y = hs/2
+
+        # set where it is placed
+        self.window.geometry('+%d+%d'%(x, y))
         self.window.mainloop()
 
     def set_request_text(self, text:str):
