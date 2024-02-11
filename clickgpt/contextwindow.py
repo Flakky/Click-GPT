@@ -34,7 +34,7 @@ class ContextWindow:
         self.res_field.grid(row=1, column=0)
 
         self.copypaste_button = tk.Button(self.window, text="Copy Paste", padx=10, command=lambda: self.copy_paste_close())
-        self.copypaste_button.grid(row=2, column=1)
+        self.copypaste_button.grid(row=1, column=1)
 
         options_label_string = tk.StringVar()
         options_label_string.set("Select action")
