@@ -6,12 +6,14 @@ import pyautogui
 import contextwindow
 import gpt
 
+class ClickGPTContext:
+    aiclient: gpt.OpenAI
+    options:dict[str, contextwindow.TextOption]
 
-# TODO: Move to config or something
-options = {
-    "fix_grammar": {"name": "Fix grammar", "request": "Fix grammar of the given text. Do not print anything except fixed text: {text}"},
-    "improve_text": {"name": "Improve text", "request": "Improve given text. Do not print anything except improved text: {text}"},
-}
+    def __init__(self, aiclient:gpt.OpenAI, options:dict[str, contextwindow.TextOption]) -> None:
+        self.aiclient = aiclient
+        self.options = options
+        
 
 class SendTextContext:
     window: contextwindow = None
@@ -22,22 +24,21 @@ class SendTextContext:
         self.aiclient = aiclient
         
 
-def send_option_request(tag:str, context:SendTextContext):
-    open_ai_request = gpt.OpenAITextRequest(context.aiclient, options[tag]["request"].format(text=context.window.get_request_text()))
+def send_option_request(request:str, context:SendTextContext):
+    open_ai_request = gpt.OpenAITextRequest(context.aiclient, request)
     response = gpt.text_request(open_ai_request)
     context.window.set_response_text(response)
 
 
-def on_hotkey(aiclient):
-    select_options = []
-
-    for tag, option in options.items():
-        select_options.append(contextwindow.TextOption(tag, option["name"]))
-
+def on_hotkey(gpt_context: ClickGPTContext):
     window = contextwindow.ContextWindow()
-    context = SendTextContext(window, aiclient)
-    option_callback = lambda tag: send_option_request(tag, context)
-    window.create(select_options, option_callback)
+    context = SendTextContext(window, gpt_context.aiclient)
+    option_callback = lambda tag, option: (
+        print(tag),
+        send_option_request(option.request.format(text=window.get_request_text()), context)
+    )
+    
+    window.create(gpt_context.options, option_callback)
 
     selected_text = copy_selected_text()
     print(selected_text)
@@ -77,8 +78,8 @@ def copy_selected_text():
         return None
     
 
-def init(aiclient):
-    keyboard.add_hotkey('ctrl+`', lambda: on_hotkey(aiclient))  
+def init(context: ClickGPTContext):
+    keyboard.add_hotkey('ctrl+`', lambda: on_hotkey(context))
     input("Press Enter to quit") 
 
 

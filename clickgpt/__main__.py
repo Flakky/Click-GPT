@@ -4,6 +4,8 @@ import gpt
 import os
 import sys
 import settings
+import json
+import contextwindow
 
 if __name__ == "__main__":
    config = configparser.ConfigParser()
@@ -23,4 +25,14 @@ if __name__ == "__main__":
 
    gpt_client = gpt.create_client(api_key)
 
-   clickgpt.init(gpt_client)
+   options_obj: dict = {}
+   with open(os.path.join(script_path, '../options.json'), 'r') as file:
+      options_obj = json.load(file)
+
+   options: dict[str: contextwindow.TextOption] = {}
+   for (key, val) in options_obj.items():
+      options[key] = contextwindow.TextOption.from_dict(val)
+
+   clickgptcontext = clickgpt.ClickGPTContext(gpt_client, options)
+
+   clickgpt.init(clickgptcontext)

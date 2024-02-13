@@ -18,6 +18,8 @@ def create_client(api_key:str) -> OpenAI:
 def text_request(request:OpenAITextRequest) -> str:
     if request is None: return ""
 
+    print(f'Send GPT request: {request.request}')
+
     response = request.client.chat.completions.create(
         model=request.model,
         messages=[{"role": "user", "content": request.request}]

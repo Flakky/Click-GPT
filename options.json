@@ -1,0 +1,29 @@
+{
+    "improve":{
+        "name": "Improve text",
+        "options": {
+            "fix_grammar": {
+                "name": "Fix grammar", 
+                "request": "Fix grammar of the given text. Do not print anything except fixed text: {text}"
+            },
+            "fix_grammar_light": {
+                "name": "Fix grammar (Light)", 
+                "request": "Fix grammar of the given text, but do not change text too much. Do not print anything except fixed text: {text}"
+            },
+            "improve_text": {
+                "name": "Improve text", 
+                "request": "Improve given text. Do not print anything except improved text: {text}"
+            }
+        }
+    },
+    "translate": {
+        "name": "Translate", 
+        "options": {
+            "translate_english": {"name": "Translate to English", "request": "Translate text to English. Do not print anything except fixed text: {text}"},
+            "translate_spanish": {"name": "Translate to Spanish", "request": "Translate text to Spanish. Do not print anything except fixed text: {text}"},
+            "translate_chinese": {"name": "Translate to Chinese", "request": "Translate text to Chinese. Do not print anything except fixed text: {text}"},
+            "translate_russian": {"name": "Translate to Russian", "request": "Translate text to Russian. Do not print anything except fixed text: {text}"},
+            "translate_japanese": {"name": "Translate to Japanese", "request": "Translate text to Japanese. Do not print anything except fixed text: {text}"}
+        }
+    }
+}
