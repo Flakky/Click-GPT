@@ -1,5 +1,7 @@
 from __future__ import annotations
 import tkinter as tk
+import ttkbootstrap as ttk
+from ttkbootstrap.constants import *
 import pyperclip
 import pyautogui
 import time
@@ -31,33 +33,33 @@ class TextOption:
 
 
 class ContextWindow:
-    window: tk.Tk
-    req_field: tk.Text
-    res_field: tk.Text
-    copypaste_button: tk.Button
+    window: ttk.Tk
+    req_field: ttk.Text
+    res_field: ttk.Text
+    copypaste_button: ttk.Button
 
 
     def __init__(self) -> None:
         pass
 
-    def create(self, options:dict[str, TextOption], option_select_callback) -> tk.Tk:
-        self.window = tk.Tk()
+    def create(self, options:dict[str, TextOption], option_select_callback) -> ttk.Tk:
+        self.window = ttk.Window(themename="superhero")
         self.window.title("ClickGPT")
         self.window.attributes('-topmost',True)  #for focus on toplevel
 
-        self.req_field = tk.Text(self.window, width=70, height=4, wrap=tk.WORD)
+        self.req_field = ttk.Text(self.window, width=70, height=4, wrap=ttk.WORD)
         self.req_field.grid(row=0, column=0)
 
-        self.res_field = tk.Text(self.window, width=70, height=4, wrap=tk.WORD)
+        self.res_field = ttk.Text(self.window, width=70, height=4, wrap=ttk.WORD)
         self.res_field.grid(row=1, column=0)
 
-        self.copypaste_button = tk.Button(self.window, text="Copy Paste", padx=10, command=lambda: self.copy_paste_close())
+        self.copypaste_button = ttk.Button(self.window, text="Copy Paste", bootstyle=SUCCESS, command=lambda: self.copy_paste_close())
         self.copypaste_button.grid(row=1, column=1)
 
-        options_label_string = tk.StringVar()
+        options_label_string = ttk.StringVar()
         options_label_string.set("Select action")
 
-        options_label = tk.OptionMenu(self.window, options_label_string, ())
+        options_label = ttk.OptionMenu(self.window, options_label_string, ())
         options_label.grid(row=0, column=1)
 
         menu = options_label["menu"]
@@ -65,10 +67,10 @@ class ContextWindow:
 
         self.fill_options_recursive(menu, options, option_select_callback)
 
-    def fill_options_recursive(self, menu: tk.Menu | tk.OptionMenu, options: dict[str, TextOption], option_select_callback):
+    def fill_options_recursive(self, menu: ttk.Menu | ttk.OptionMenu, options: dict[str, TextOption], option_select_callback):
         for (key, option) in options.items():
             if option.options:
-                sublist = tk.Menu(menu, tearoff=False)
+                sublist = ttk.Menu(menu, tearoff=False)
                 menu.add_cascade(label=option.name, menu=sublist)
 
                 self.fill_options_recursive(sublist, option.options, option_select_callback)
@@ -89,16 +91,16 @@ class ContextWindow:
         self.window.mainloop()
 
     def set_request_text(self, text:str):
-        self.req_field.insert(tk.END, text)
+        self.req_field.insert(ttk.END, text)
 
     def set_response_text(self, text:str):
-        self.res_field.insert(tk.END, text)
+        self.res_field.insert(ttk.END, text)
 
     def get_request_text(self) -> str:
-        return self.req_field.get("1.0",tk.END)
+        return self.req_field.get("1.0",ttk.END)
 
     def get_response_text(self) -> str:
-        return self.res_field.get("1.0",tk.END)
+        return self.res_field.get("1.0",ttk.END)
 
     def copy_paste_close(self):
         response = self.get_response_text().rstrip()
