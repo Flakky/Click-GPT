@@ -19,11 +19,13 @@
     "translate": {
         "name": "Translate", 
         "options": {
-            "translate_english": {"name": "Translate to English", "request": "Translate text to English. Do not print anything except fixed text: {text}"},
-            "translate_spanish": {"name": "Translate to Spanish", "request": "Translate text to Spanish. Do not print anything except fixed text: {text}"},
-            "translate_chinese": {"name": "Translate to Chinese", "request": "Translate text to Chinese. Do not print anything except fixed text: {text}"},
-            "translate_russian": {"name": "Translate to Russian", "request": "Translate text to Russian. Do not print anything except fixed text: {text}"},
-            "translate_japanese": {"name": "Translate to Japanese", "request": "Translate text to Japanese. Do not print anything except fixed text: {text}"}
+            "translate_english": {"name": "Translate to English", "request": "Translate text to English. Do not print anything except translated text: {text}"},
+            "translate_spanish": {"name": "Translate to Spanish", "request": "Translate text to Spanish. Do not print anything except translated text: {text}"},
+            "translate_chinese": {"name": "Translate to Chinese", "request": "Translate text to Chinese. Do not print anything except translated text: {text}"},
+            "translate_russian": {"name": "Translate to Russian", "request": "Translate text to Russian. Do not print anything except translated text: {text}"},
+            "translate_japanese": {"name": "Translate to Japanese", "request": "Translate text to Japanese. Do not print anything except translated text: {text}"},
+            "translate_german": {"name": "Translate to German", "request": "Translate text to German. Do not print anything except translated text: {text}"},
+            "translate_french": {"name": "Translate to French", "request": "Translate text to French. Do not print anything except translated text: {text}"}
         }
     }
 }
