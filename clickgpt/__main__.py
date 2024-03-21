@@ -6,6 +6,7 @@ import sys
 import settings
 import json
 import contextwindow
+from tray import Tray
 
 if __name__ == "__main__":
    config = configparser.ConfigParser()
@@ -35,4 +36,10 @@ if __name__ == "__main__":
 
    clickgptcontext = clickgpt.ClickGPTContext(gpt_client, options)
 
-   clickgpt.init(clickgptcontext)
+   cgpt = clickgpt.ClickGPT()
+
+   tray = Tray()
+   tray.init_tray_icon(cgpt.exit)
+   tray.start()
+
+   cgpt.init(clickgptcontext)
